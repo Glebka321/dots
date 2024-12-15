@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Head from "next/head";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,7 +14,22 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "dots",
-  description: "guess the correct order",
+  description: "guess the correct combination of 4 colors",
+  openGraph: {
+    title: "dots",
+    description: "guess the correct combination of 4 colors",
+    images: [
+      {
+        url: "/placeholder.png",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "dots",
+    description: "guess the correct combination of 4 colors",
+    images: ["/placeholder.png"],
+  },
 };
 
 export default function RootLayout({
@@ -26,20 +40,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Head>
-          <title>dots</title>
-          <meta
-            name="description"
-            content="guess the correct combination of 4 colors"
-          />
-          <meta name="image" content="/placeholder.png" />
-          <meta property="og:image" content="/placeholder.png" />
-          <meta property="og:title" content="dots" />
-          <meta
-            property="og:description"
-            content="guess the correct combination of 4 colors"
-          />
-        </Head>
         {children}
       </body>
     </html>
