@@ -58,13 +58,7 @@ export default function PlayPage() {
   };
 
   const handleSubmit = () => {
-    // if (guesses.length > 7) {
-    //   setShowModal(true);
-    //   setIsTimerRunning(false);
-    //   setIsGameOver(true);
-    //   return;
-    // }
-
+   
     if (input.includes(null)) {
       return;
     }
@@ -155,7 +149,7 @@ export default function PlayPage() {
       if (navigator.share) {
         await navigator.share({
           title: "my DOTS game result",
-          text: `I completed DOTS in ${formatTimer(timer)}!`,
+          text: `I completed DOTS in ${formatTimer(timer)}! www.thedotsgame.xyz`,
           files: [file],
         });
       } else {
@@ -307,15 +301,31 @@ export default function PlayPage() {
                 </li>
               ))}
             </ul>
+            {isGameOver &&
+            <><p className={styles.instructions}>
+                game over
+              </p>
+              <div className={styles.guesses}>
+              <div className={styles.guessCircles}>
+                {targetColors.map((color, idx) => (
+                  <div
+                    key={idx}
+                    className={`${styles.circleResult} ${styles[color.toLowerCase()]}`} />))}
+                </div>
+                </div>
+                </>
+            }
             <p className={styles.modalText}>
-              {" "}
-              {isGameOver
-                ? "game over -- try again "
-                : "congratulations -- you won!"}
+              congratulations -- you won!
             </p>
             {!isGameOver &&  (
               <button className={styles.modalButton} onClick={handleShare}>
                 share
+              </button>
+            )}
+            {isGameOver &&  (
+              <button className={styles.modalButton} onClick={closeModal}>
+                try again
               </button>
             )}
           </div>
