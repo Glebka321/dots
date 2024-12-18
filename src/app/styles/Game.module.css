@@ -216,6 +216,9 @@
     border-radius: 2rem;
     /* padding-top: 2px; */
     margin-bottom: -4px;
+    margin-left: -4px;
+    margin-right: -6px;
+    z-index: 100;
   }
 
 .row {
