@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./styles/Game.module.css";
 import Head from "next/head";
 import html2canvas from "html2canvas";
+import Image from "next/image";
 
 const colors = ["Red", "Blue", "Green", "Yellow"];
 
@@ -25,6 +26,12 @@ export default function PlayPage() {
   const [timer, setTimer] = useState(0);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
+
+  const [showHowToPlay, setShowHowToPlay] = useState(false);
+
+  useEffect(() => {
+    setShowHowToPlay(true);
+  }, [])
 
   useEffect(() => {
     let interval;
@@ -259,6 +266,88 @@ export default function PlayPage() {
             ))}
         </ul>
       </div>
+      {showHowToPlay && (
+        <div className={styles.modalOverlayHowTo}>
+         <div className={styles.howToModal}>
+            <h1 className={styles.title}>How to Play</h1>
+            <p className={styles.instructions}>
+              Guess the correct color combination in 8 tries
+            </p>
+            <br />
+            <p className={styles.instructions}>
+              -Tap the colors in the order you want to guess
+            </p>
+            <p className={styles.instructions}>
+              -Square tiles will show how close your guess <br/> was to the combination 
+            </p>
+            <br />
+            <p className={styles.instructions}>
+              <b>Example target combination:</b>
+            </p>
+            <div className={styles.exampleColors}>
+            
+              <div className={`${styles.circle} ${styles.yellow}`} />
+              <div className={`${styles.circle} ${styles.yellow}`} />
+              <div className={`${styles.circle} ${styles.green}`} />
+              <div className={`${styles.circle} ${styles.green}`} />
+              
+            </div>
+            <br />
+            <div className={styles.exampleColors}>
+              <div className={`${styles.circle} ${styles.red}`} />
+              <div className={`${styles.circle} ${styles.green}`} />
+              <div className={`${styles.circle} ${styles.blue}`} />
+              <div className={`${styles.circle} ${styles.red}`} />
+              <div className={styles.feedbackGrid}>
+                <div
+                  className={`${styles.feedbackSquare} ${styles["yellow"]}`}
+                />
+                 <div
+                  className={`${styles.feedbackSquare} ${styles["empty"]}`}
+                />
+                 <div
+                  className={`${styles.feedbackSquare} ${styles["empty"]}`}
+                />
+                 <div
+                  className={`${styles.feedbackSquare} ${styles["empty"]}`}
+                />
+            </div>
+            </div>
+            <p className={styles.instructions}>
+            <span className={styles.smallCircle}></span> correct color wrong position, yellow square 
+            </p>
+           
+            <div className={styles.exampleColors}>
+              <div className={`${styles.circle} ${styles.blue}`} />
+              <div className={`${styles.circle} ${styles.yellow}`} />
+              <div className={`${styles.circle} ${styles.green}`} />
+              <div className={`${styles.circle} ${styles.red}`} />
+              <div className={styles.feedbackGrid}>
+                <div
+                  className={`${styles.feedbackSquare} ${styles["green"]}`}
+                />
+                 <div
+                  className={`${styles.feedbackSquare} ${styles["empty"]}`}
+                />
+                 <div
+                  className={`${styles.feedbackSquare} ${styles["empty"]}`}
+                />
+                 <div
+                  className={`${styles.feedbackSquare} ${styles["empty"]}`}
+                />
+            </div>
+            </div>
+            <p className={styles.instructions}>
+            <span className={styles.smallCircleYellow}></span> correct color and position, green square
+            </p>
+            
+
+            <button className={styles.playButton} onClick={() => setShowHowToPlay(false)}>
+              <p>play</p>
+            </button>
+          </div>
+        </div>
+      )}
       {showModal && (
         <div className={styles.modalOverlay}>
           <div ref={modalContentRef} className={styles.modal}>
